@@ -26,7 +26,7 @@ class CustomizeBootstrap4WebpackPlugin {
 
   prependEntryPoints(customizers, entryPoints) {
     const out = [].concat(entryPoints);
-    out.splice(entryPoints.length - 1, 0, ...customizers);
+    out.splice(out.length - 1, 0, ...customizers);
     return out;
   }
 
