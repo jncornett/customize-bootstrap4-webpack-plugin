@@ -7,7 +7,7 @@ class CustomizeBootstrap4WebpackPlugin {
 
   apply(compiler) {
     compiler.plugin('compilation', compilation => {
-      console.log('HOOK compile', compilation);
+      console.log('HOOK compile', compilation.options);
     });
 
     compiler.apply(new webpack.ProvidePlugin({
