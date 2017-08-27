@@ -49,7 +49,8 @@ class CustomizeBootstrap4WebpackPlugin {
       compilation.options.entry = this.prependEntryPoints(
         this.getCustomizers(),
         compilation.options.entry
-      )
+      );
+      console.log("ENTRY", compilation.options.entry);
     });
 
     compiler.apply(new webpack.ProvidePlugin({
