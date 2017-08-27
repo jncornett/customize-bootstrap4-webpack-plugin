@@ -1,0 +1,16 @@
+{
+  "name": "customize-bootstrap4-webpack-plugin",
+  "version": "1.0.0",
+  "description": "Plugin for easily adding a customizable Bootstrap 4 to your webpack build. No more boilerplate!",
+  "main": "index.js",
+  "author": "Joel Cornett <joel.cornett@gmail.com>",
+  "license": "MIT",
+  "peerDependencies": {
+    "webpack": "^3.5.5"
+  },
+  "dependencies": {
+    "bootstrap": "v4.0.0-beta",
+    "jquery": "^3.2.1",
+    "popper.js": "^1.12.3"
+  }
+}
