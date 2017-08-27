@@ -39,7 +39,7 @@ class CustomizeBootstrap4WebpackPlugin {
   apply(compiler) {
     compiler.plugin('compilation', compilation => {
       compilation.options.entry = this.prependEntryPoints(
-        getCustomizers(),
+        this.getCustomizers(),
         compilation.options.entry
       )
     });
