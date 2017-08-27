@@ -25,7 +25,9 @@ class CustomizeBootstrap4WebpackPlugin {
   }
 
   prependEntryPoints(customizers, entryPoints) {
-    return entryPoints.splice(entryPoints.length - 1, 0, ...customizers);
+    const out = [].concat(entryPoints);
+    out.splice(entryPoints.length - 1, 0, ...customizers);
+    return out;
   }
 
   // FIXME support the full entry spec: https://webpack.js.org/configuration/entry-context/#entry
