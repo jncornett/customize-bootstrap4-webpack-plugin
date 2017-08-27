@@ -24,10 +24,14 @@ class CustomizeBootstrap4WebpackPlugin {
     return defaultCustomizers.concat(Array.isArray(customizers) ? customizers : [customizers]);
   }
 
+  prependEntryPoints(customizers, entryPoints) {
+    return entryPoints.splice(entryPoints.length - 1, 0, ...customizers);
+  }
+
   // FIXME support the full entry spec: https://webpack.js.org/configuration/entry-context/#entry
-  prependEntryPoints(customizers, entryConfig) {
+  updateEntry(customizers, entryConfig) {
     if (typeof entryConfig === 'string' || Array.isArray(entryConfig))
-      return customizers.concat(entryConfig);
+      return this.prependEntryPoints(customizers, entryConfig);
 
     const include = this.options.entryPoints ?
       (x => this.options.entryPoints.include(x)) :
@@ -36,7 +40,7 @@ class CustomizeBootstrap4WebpackPlugin {
     const out = {};
     Object.entries(entryConfig).forEach(([k, v]) => {
       if (include(k)) {
-        out[k] = customizers.concat(v)
+        out[k] = this.prependEntryPoints(customizers, v)
       } else {
         out[k] = v
       }
@@ -46,7 +50,7 @@ class CustomizeBootstrap4WebpackPlugin {
 
   apply(compiler) {
     compiler.plugin('compilation', compilation => {
-      compilation.options.entry = this.prependEntryPoints(
+      compilation.options.entry = this.updateEntry(
         this.getCustomizers(),
         compilation.options.entry
       );
