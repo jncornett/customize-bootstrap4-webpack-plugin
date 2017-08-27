@@ -27,6 +27,7 @@ class CustomizeBootstrap4WebpackPlugin {
   // FIXME support the full entry spec: https://webpack.js.org/configuration/entry-context/#entry
   prependEntryPoints(customizers, entryConfig) {
     if (!isObject(entryConfig)) {
+      console.log("ENTRY", entryConfig);
       throw `Unsupported entry type: ${typeof entryConfig}. Currently supported types are string and [string].`
     }
     if (!Array.isArray(entryConfig)) {
