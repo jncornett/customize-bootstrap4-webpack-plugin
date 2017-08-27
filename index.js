@@ -8,6 +8,7 @@ class CustomizeBootstrap4WebpackPlugin {
   apply(compiler) {
     compiler.plugin('compilation', compilation => {
       console.log('HOOK compile', compilation.options);
+      compilation.options.output.filename = 'xundle.js';
     });
 
     compiler.apply(new webpack.ProvidePlugin({
