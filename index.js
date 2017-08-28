@@ -1,4 +1,5 @@
 const webpack = require('webpack');
+const EntryOptionPlugin = require('webpack/lib/EntryOptionPlugin');
 
 const defaults = { };
 
