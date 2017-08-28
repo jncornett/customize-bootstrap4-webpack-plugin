@@ -65,7 +65,7 @@ class CustomizeBootstrap4WebpackPlugin {
       return true;
     });
     compiler.plugin('make', (compilation, callback) => {
-      console.log('MAKE', context, entry);
+      console.log('MAKE', compilation, callback);
     });
 
     compiler.apply(new webpack.ProvidePlugin({
