@@ -24,10 +24,9 @@ class CustomizeBootstrap4WebpackPlugin {
   }
 
   apply(compiler) {
-    console.log('ENTRY OPTION PLUGIN', EntryOptionPlugin);
     compiler.plugin('entry-option', (context, entry) => {
       compiler.apply(new EntryOptionPlugin());
-      return false;
+      return true;
     });
 
     const provideConfig = {
