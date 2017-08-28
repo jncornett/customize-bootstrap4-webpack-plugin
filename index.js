@@ -1,8 +1,8 @@
 const webpack = require('webpack');
 
-const SingleEntryPlugin = require("./SingleEntryPlugin");
-const MultiEntryPlugin = require("./MultiEntryPlugin");
-const DynamicEntryPlugin = require("./DynamicEntryPlugin");
+const SingleEntryPlugin = require("webpack/lib/SingleEntryPlugin");
+const MultiEntryPlugin = require("webpack/lib/MultiEntryPlugin");
+const DynamicEntryPlugin = require("webpack/lib/DynamicEntryPlugin");
 
 const defaults = { customStyle: null };
 
