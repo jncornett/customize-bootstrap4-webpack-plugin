@@ -1,5 +1,8 @@
 const webpack = require('webpack');
-const EntryOptionPlugin = require('webpack/lib/EntryOptionPlugin');
+
+const SingleEntryPlugin = require("./SingleEntryPlugin");
+const MultiEntryPlugin = require("./MultiEntryPlugin");
+const DynamicEntryPlugin = require("./DynamicEntryPlugin");
 
 const defaults = { customStyle: null };
 
@@ -18,6 +21,13 @@ function prepend(prependers, entry) {
   return newEntry;
 }
 
+function itemToPlugin(context, item, name) {
+	if(Array.isArray(item)) {
+		return new MultiEntryPlugin(context, item, name);
+	}
+	return new SingleEntryPlugin(context, item, name);
+}
+
 class CustomizeBootstrap4WebpackPlugin {
   constructor(options) {
     this.options = Object.assign({}, defaults, options);
@@ -25,7 +35,13 @@ class CustomizeBootstrap4WebpackPlugin {
 
   apply(compiler) {
     compiler.plugin('entry-option', (context, entry) => {
-      compiler.apply(new EntryOptionPlugin());
+			if(typeof entry === "string" || Array.isArray(entry)) {
+				compiler.apply(itemToPlugin(context, entry, "main"));
+			} else if(typeof entry === "object") {
+				Object.keys(entry).forEach(name => compiler.apply(itemToPlugin(context, entry[name], name)));
+			} else if(typeof entry === "function") {
+				compiler.apply(new DynamicEntryPlugin(context, entry));
+			}
       return true;
     });
 
