@@ -6,6 +6,8 @@
   "author": "Joel Cornett <joel.cornett@gmail.com>",
   "license": "MIT",
   "peerDependencies": {
+    "node-sass": "^4.5.3",
+    "sass-loader": "^6.0.6",
     "webpack": "^3.5.5"
   },
   "dependencies": {
