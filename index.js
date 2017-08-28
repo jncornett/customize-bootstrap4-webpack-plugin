@@ -83,8 +83,6 @@ class XCustomizeBootstrap4WebpackPlugin {
   }
 }
 
-const CUSTOM_STYLE_ALIAS = '__customize_bootstrap4_webpack_plugin_style';
-
 class CustomizeBootstrap4WebpackPlugin {
   constructor(options) {
     if (typeof options === 'string')
