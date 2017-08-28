@@ -1,8 +1,12 @@
+const path = require('path');
+
 const webpack = require('webpack');
 
 const SingleEntryPlugin = require("webpack/lib/SingleEntryPlugin");
 const MultiEntryPlugin = require("webpack/lib/MultiEntryPlugin");
 const DynamicEntryPlugin = require("webpack/lib/DynamicEntryPlugin");
+
+const pkg = require('./package.json');
 
 function prepend(prependers, entry) {
   let newEntry = null;
@@ -26,7 +30,15 @@ function itemToPlugin(context, item, name) {
 	return new SingleEntryPlugin(context, item, name);
 }
 
-const defaults = { customStyle: null };
+const CUSTOM_STYLE_ALIAS = '__customize_bootstrap4_webpack_plugin_style';
+
+const defaults = {
+  customStyle: null,
+  __defaultPrependers: [
+    path.join(pkg.name, 'entry'),
+    path.join(pkg.name, 'entry.scss')
+  ]
+};
 
 class CustomizeBootstrap4WebpackPlugin {
   constructor(options) {
@@ -34,6 +46,7 @@ class CustomizeBootstrap4WebpackPlugin {
   }
 
   apply(compiler) {
+    /*
     compiler.plugin('entry-option', (context, entry) => {
       if (this.options.customStyle) {
         entry = prepend([].concat(this.options.customStyle), entry)
@@ -47,6 +60,17 @@ class CustomizeBootstrap4WebpackPlugin {
 				compiler.apply(new DynamicEntryPlugin(context, entry));
 			}
       return true;
+    });
+    */
+    compiler.plugin('normal-module-factory', normalModuleFactory => {
+      normalModuleFactory.plugin('before-resolve', (result, callback) => {
+        console.log('BEFORE', result, callback);
+        return callback(null, result);
+      });
+      normalModuleFactory.plugin('after-resolve', (result, callback) => {
+        console.log('AFTER', result, callback);
+        return callback(null, result);
+      })
     });
 
     const provideConfig = {
