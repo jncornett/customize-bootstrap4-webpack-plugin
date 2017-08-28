@@ -40,7 +40,7 @@ const defaults = {
   ]
 };
 
-class CustomizeBootstrap4WebpackPlugin {
+class XCustomizeBootstrap4WebpackPlugin {
   constructor(options) {
     this.options = Object.assign({}, defaults, options);
   }
@@ -78,6 +78,31 @@ class CustomizeBootstrap4WebpackPlugin {
       jQuery: 'jquery',
       Popper: 'popper.js'
     };
+
+    compiler.apply(new webpack.ProvidePlugin(provideConfig));
+  }
+}
+
+const CUSTOM_STYLE_ALIAS = '__customize_bootstrap4_webpack_plugin_style';
+
+class CustomizeBootstrap4WebpackPlugin {
+  constructor(options) {
+    if (typeof options === 'string')
+      options = { customStyle: options };
+
+    this.options = options;
+  }
+
+  apply(compiler) {
+
+    const provideConfig = {
+      // required for bootstrap
+      jQuery: 'jquery',
+      Popper: 'popper.js',
+    };
+
+    if (this.options.customStyle)
+      provideConfig[CUSTOM_STYLE_ALIAS] = this.options.customStyle;
 
     compiler.apply(new webpack.ProvidePlugin(provideConfig));
   }
