@@ -51,12 +51,18 @@ class CustomizeBootstrap4WebpackPlugin {
   }
 
   apply(compiler) {
+    /*
     compiler.plugin('compilation', compilation => {
       compilation.options.entry = this.updateEntry(
         this.getCustomizers(),
         compilation.options.entry
       );
       console.log("ENTRY", compilation.options.entry);
+    });
+    */
+    compiler.plugin('entry-option', (context, entry) => {
+      console.log('ENTRY', context, entry);
+      return true;
     });
 
     compiler.apply(new webpack.ProvidePlugin({
