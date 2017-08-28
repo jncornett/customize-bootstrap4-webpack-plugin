@@ -1,3 +1,3 @@
 import 'bootstrap';
 //import './entry.scss';
-import "sass-loader!bootstrap/scss/bootstrap.scss";
+import "style-loader!css-loader!sass-loader!bootstrap/scss/bootstrap.scss";
