@@ -8,10 +8,12 @@ class CustomizeBootstrap4WebpackPlugin {
   }
 
   apply(compiler) {
+    console.log('ENTRY OPTION PLUGIN', webpack.EntryOptionPlugin);
     compiler.plugin('entry-option', (context, entry) => {
       console.log('ENTRY', context, entry);
       return false;
-    })
+    });
+
     const provideConfig = {
       // required for bootstrap
       jQuery: 'jquery',
